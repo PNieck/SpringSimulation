@@ -1,6 +1,9 @@
-#include <iostream>
+#include <simulation/window.hpp>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Window window(600, 400, "Spring simulation");
+
+    window.RunMessageLoop();
+
     return 0;
 }
