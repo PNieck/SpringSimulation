@@ -1,13 +1,14 @@
 #include <simulation/controllers/mainController.hpp>
 
 
-MainController::MainController(GLFWwindow *window, int window_width, int window_height)
+MainController::MainController(GLFWwindow *window):
+    guiController(window)
 {
 
 }
 
 
-void MainController::Render()
+void MainController::Render() const
 {
-
+    guiController.Render();
 }
