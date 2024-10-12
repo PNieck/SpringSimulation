@@ -45,6 +45,7 @@ void GuiController::Render() const
 
     dockingSpace.Render();
     optionsPanel.Render();
+    plotController.Render();
 
 
     ImGui::Render();
