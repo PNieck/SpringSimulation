@@ -1,0 +1,32 @@
+#pragma once
+
+#include <functional>
+#include <cstdint>
+#include <atomic>
+#include <thread>
+
+
+class TimedLoop {
+public:
+    TimedLoop(int periodInMs, std::function<void(void)> fun);
+    ~TimedLoop();
+
+    void Start();
+    void End();
+
+private:
+
+    void ThreadFunction();
+
+    static int64_t GetCurrentClockInNs();
+    int64_t GetTimeToWait();
+
+    std::function<void(void)> fun;
+    int64_t periodInNs;
+    int64_t nextClock;
+
+    std::atomic_bool running;
+    std::thread thread;
+
+    static constexpr uint64_t oneMsInNs = 1000000L;
+};
