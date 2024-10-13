@@ -75,11 +75,12 @@ void Window::InitializeGlad()
 }
 
 
-void Window::RunMessageLoop() const
+void Window::RunMessageLoop()
 {
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
+        controller.Update();
         controller.Render();
 
         glfwSwapBuffers(window);

@@ -8,12 +8,15 @@
 #include "../views/dockingSpace.hpp"
 #include "../views/optionsPanel.hpp"
 
+#include "../model/springState.hpp"
+
 
 class GuiController {
 public:
     explicit GuiController(GLFWwindow* window);
     ~GuiController();
 
+    void Update(const SpringState& state);
     void Render() const;
 
 private:

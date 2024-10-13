@@ -33,6 +33,12 @@ GuiController::~GuiController()
 }
 
 
+void GuiController::Update(const SpringState &state)
+{
+    plotController.Update(state);
+}
+
+
 void GuiController::Render() const
 {
     //glClear(GL_COLOR_BUFFER_BIT);

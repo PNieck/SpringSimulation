@@ -15,7 +15,15 @@ PlotController::~PlotController()
 }
 
 
+void PlotController::Update(const SpringState& state)
+{
+    springStateGraph.Update(state);
+}
+
+
 void PlotController::Render() const
 {
     ImPlot::ShowDemoWindow();
+
+    springStateGraph.Render();
 }
