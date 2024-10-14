@@ -7,8 +7,9 @@
 
 #include "../views/dockingSpace.hpp"
 #include "../views/optionsPanel.hpp"
+#include "../views/simInformationView.hpp"
 
-#include "../model/springState.hpp"
+#include "../model/simulationResult.hpp"
 
 
 class GuiController {
@@ -16,8 +17,9 @@ public:
     explicit GuiController(GLFWwindow* window);
     ~GuiController();
 
-    void Update(const SpringState& state);
-    void Render() const;
+    void Update(const SimulationResult& result);
+
+    void Render();
 
 private:
 
@@ -25,4 +27,5 @@ private:
 
     DockingSpace dockingSpace;
     OptionsPanel optionsPanel;
+    SimulationInformationView simulationInformationView;
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "simulationProperties.hpp"
-#include "springState.hpp"
+#include "simulationResult.hpp"
 
 #include <mutex>
 
@@ -13,7 +13,7 @@ public:
     void UpdateSimulation();
 
     [[nodiscard]]
-    SpringState GetState();
+    SimulationResult GetResult();
 
 private:
     [[nodiscard]]
@@ -27,6 +27,12 @@ private:
 
     [[nodiscard]]
     float NewAcceleration(float newPosition) const;
+
+    [[nodiscard]]
+    float RestoringForce(const SpringState& state) const;
+
+    [[nodiscard]]
+    float DampingForce(const SpringState& state) const;
 
     SpringState actSpringState;
     SpringState prevSpringState;

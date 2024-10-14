@@ -14,7 +14,7 @@ DockingSpace::DockingSpace()
 }
 
 
-void DockingSpace::Render() const
+void DockingSpace::Render()
 {
     const ImGuiViewport *viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->Pos);
@@ -30,16 +30,15 @@ void DockingSpace::Render() const
     ImGui::PopStyleVar(2);
 
     // DockSpace
-    ImGuiIO &io = ImGui::GetIO();
+    const ImGuiIO &io = ImGui::GetIO();
     if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
     {
         ImGuiID DockSpaceId = ImGui::GetID("MyDockSpace");
         ImGui::DockSpace(DockSpaceId, ImVec2(0.0f, 0.0f), dockNodeFlags);
 
-        static auto first_time = true;
-        if (first_time)
+        if (firstRender)
         {
-            first_time = false;
+            firstRender = false;
 
             ImGui::DockBuilderRemoveNode(DockSpaceId); // clear any previous layout
             ImGui::DockBuilderAddNode(DockSpaceId, dockNodeFlags | ImGuiDockNodeFlags_DockSpace);

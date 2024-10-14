@@ -10,13 +10,13 @@ MainController::MainController(GLFWwindow *window):
 
 void MainController::Update()
 {
-    const SpringState springState = model.GetSpringState();
+    const auto simulationState = model.GetSpringState();
 
-    guiController.Update(springState);
+    guiController.Update(simulationState);
 }
 
 
-void MainController::Render() const
+void MainController::Render()
 {
     guiController.Render();
 }

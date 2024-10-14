@@ -15,11 +15,17 @@ void Simulation::UpdateSimulation()
 }
 
 
-SpringState Simulation::GetState()
+SimulationResult Simulation::GetResult()
 {
     std::lock_guard quard(springStateMutex);
 
-    return prevSpringState;
+    return {
+        prevSpringState,
+        RestoringForce(prevSpringState),
+        DampingForce(prevSpringState),
+        simProps.externalForce->Value(prevSpringState.t),
+        simProps.springFreeEndPosition->Value(prevSpringState.t),
+    };
 }
 
 
@@ -35,10 +41,10 @@ SpringState Simulation::NewState()
     return result;
 }
 
+
 float Simulation::NewPosition() const
 {
-    const float actSpringLen = simProps.springFreeEndPosition->Value(actSpringState.t) - actSpringState.x;
-    const float actRestoringForce = simProps.springCoef * actSpringLen;
+    const float actRestoringForce = RestoringForce(actSpringState);
     const float actExternForce = simProps.externalForce->Value(actSpringState.t);
 
     const float deltaSq = simProps.deltaT * simProps.deltaT;
@@ -57,4 +63,17 @@ float Simulation::NewVelocity(float newPosition) const {
 
 float Simulation::NewAcceleration(float newPosition) const {
     return (newPosition - 2.f*actSpringState.x + prevSpringState.x) / (simProps.deltaT * simProps.deltaT);
+}
+
+
+float Simulation::RestoringForce(const SpringState& state) const
+{
+    const float springLen = simProps.springFreeEndPosition->Value(state.t) - state.x;
+    return simProps.springCoef * springLen;
+}
+
+
+float Simulation::DampingForce(const SpringState &state) const
+{
+    return -simProps.dampingCoef * state.xt;
 }

@@ -7,9 +7,11 @@ class DockingSpace {
 public:
     DockingSpace();
 
-    void Render() const;
+    void Render();
 
 private:
+    bool firstRender = true;
+
     ImGuiWindowFlags windowFlags;
     ImGuiDockNodeFlags dockNodeFlags;
 };

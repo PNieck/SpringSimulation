@@ -14,7 +14,7 @@ public:
 
     void Update();
 
-    void Render() const;
+    void Render();
 
 private:
     GuiController guiController;

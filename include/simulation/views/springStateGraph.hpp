@@ -1,17 +1,22 @@
 #pragma once
 
-#include "../model/springState.hpp"
+#include <simulation/model/simulationResult.hpp>
 
 #include <vector>
+
 
 
 class SpringStateGraph {
 public:
     SpringStateGraph();
 
-    void Update(const SpringState& state);
+    void Update(const SimulationResult& state);
 
     void Render() const;
+
+    [[nodiscard]]
+    static const char* WindowName()
+        { return "Position, velocity and acceleration"; }
 
 private:
     static constexpr int maxStates = 10000;

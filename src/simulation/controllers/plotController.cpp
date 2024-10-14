@@ -15,7 +15,7 @@ PlotController::~PlotController()
 }
 
 
-void PlotController::Update(const SpringState& state)
+void PlotController::Update(const SimulationResult& state)
 {
     springStateGraph.Update(state);
 }

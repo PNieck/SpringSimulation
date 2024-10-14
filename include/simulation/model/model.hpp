@@ -15,8 +15,8 @@ public:
         { timedLoop.End(); }
 
     [[nodiscard]]
-    SpringState GetSpringState()
-        { return simulation.GetState(); }
+    SimulationResult GetSpringState()
+        { return simulation.GetResult(); }
 
 private:
     TimedLoop timedLoop;

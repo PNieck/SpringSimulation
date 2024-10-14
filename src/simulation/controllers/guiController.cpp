@@ -33,26 +33,24 @@ GuiController::~GuiController()
 }
 
 
-void GuiController::Update(const SpringState &state)
+void GuiController::Update(const SimulationResult& result)
 {
-    plotController.Update(state);
+    plotController.Update(result);
+    simulationInformationView.Update(result);
 }
 
 
-void GuiController::Render() const
+void GuiController::Render()
 {
-    //glClear(GL_COLOR_BUFFER_BIT);
-
     // Creating new frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-
     dockingSpace.Render();
     optionsPanel.Render();
     plotController.Render();
-
+    simulationInformationView.Render();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

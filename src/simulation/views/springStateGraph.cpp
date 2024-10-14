@@ -12,7 +12,7 @@ SpringStateGraph::SpringStateGraph()
 }
 
 
-void SpringStateGraph::Update(const SpringState &state)
+void SpringStateGraph::Update(const SimulationResult& state)
 {
     t.push_back(state.t);
     x.push_back(state.x);
@@ -23,7 +23,7 @@ void SpringStateGraph::Update(const SpringState &state)
 
 void SpringStateGraph::Render() const
 {
-    ImGui::Begin("Position, velocity and acceleration");
+    ImGui::Begin(WindowName());
 
     if (ImPlot::BeginPlot("Graphs of position, velocity and acceleration")) {
         ImPlot::SetupAxes("t [s]","y");
