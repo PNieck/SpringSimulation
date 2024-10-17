@@ -2,6 +2,7 @@
 
 #include <simulation/views/forcesGraph.hpp>
 #include <simulation/views/springStateGraph.hpp>
+#include <simulation/views/trajectoryGraph.hpp>
 
 #include <implot.h>
 
@@ -24,5 +25,5 @@ void PlotController::Render(const SimulationResultsRepo &repo) const
 
     SpringStateGraph::Render(repo);
     ForcesGraph::Render(repo);
-
+    TrajectoryGraph::Render(repo);
 }
