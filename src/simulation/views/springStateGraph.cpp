@@ -3,34 +3,19 @@
 #include "implot.h"
 
 
-SpringStateGraph::SpringStateGraph()
-{
-    t.reserve(maxStates);
-    x.reserve(maxStates);
-    xt.reserve(maxStates);
-    xtt.reserve(maxStates);
-}
-
-
-void SpringStateGraph::Update(const SimulationResult& state)
-{
-    t.push_back(state.t);
-    x.push_back(state.x);
-    xt.push_back(state.xt);
-    xtt.push_back(state.xtt);
-}
-
-
-void SpringStateGraph::Render() const
+void SpringStateGraph::Render(const SimulationResultsRepo &repo)
 {
     ImGui::Begin(WindowName());
 
     if (ImPlot::BeginPlot("Graphs of position, velocity and acceleration")) {
-        ImPlot::SetupAxes("t [s]","y");
+        const int vecLen = repo.Size();
+        const auto& times = repo.GetTimes();
+
+        ImPlot::SetupAxes("t [s]","value");
         ImPlot::SetupAxesLimits(0,60,-40,40);
-        ImPlot::PlotLine("x(t)", t.data(), x.data(), t.size());
-        ImPlot::PlotLine("xt(t)", t.data(), xt.data(), t.size());
-        ImPlot::PlotLine("xtt(t)", t.data(), xtt.data(), t.size());
+        ImPlot::PlotLine("x(t)", times.data(), repo.GetPosition().data(), vecLen);
+        ImPlot::PlotLine("xt(t)", times.data(), repo.GetVelocities().data(), vecLen);
+        ImPlot::PlotLine("xtt(t)", times.data(), repo.GetAccelerations().data(), vecLen);
         ImPlot::EndPlot();
     }
 

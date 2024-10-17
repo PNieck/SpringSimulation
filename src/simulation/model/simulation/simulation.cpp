@@ -1,4 +1,4 @@
-#include <simulation/model/simulation.hpp>
+#include <simulation/model/simulation/simulation.hpp>
 
 Simulation::Simulation(SimulationProperties&& properties):
     actSpringState(properties), prevSpringState(properties), simProps(std::move(properties))

@@ -1,5 +1,8 @@
 #include <simulation/controllers/plotController.hpp>
 
+#include <simulation/views/forcesGraph.hpp>
+#include <simulation/views/springStateGraph.hpp>
+
 #include <implot.h>
 
 
@@ -15,15 +18,11 @@ PlotController::~PlotController()
 }
 
 
-void PlotController::Update(const SimulationResult& state)
-{
-    springStateGraph.Update(state);
-}
-
-
-void PlotController::Render() const
+void PlotController::Render(const SimulationResultsRepo &repo) const
 {
     ImPlot::ShowDemoWindow();
 
-    springStateGraph.Render();
+    SpringStateGraph::Render(repo);
+    ForcesGraph::Render(repo);
+
 }

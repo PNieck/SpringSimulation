@@ -11,12 +11,11 @@ MainController::MainController(GLFWwindow *window):
 void MainController::Update()
 {
     const auto simulationState = model.GetSpringState();
-
-    guiController.Update(simulationState);
+    repo.AddNewResult(simulationState);
 }
 
 
 void MainController::Render()
 {
-    guiController.Render();
+    guiController.Render(repo);
 }

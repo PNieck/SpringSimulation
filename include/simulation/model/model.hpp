@@ -1,7 +1,7 @@
 #pragma once
 
-#include "timedLoop.hpp"
-#include "simulation.hpp"
+#include "simulation/timedLoop.hpp"
+#include "simulation/simulation.hpp"
 
 
 class Model {

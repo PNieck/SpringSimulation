@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../model/simulationProperties.hpp"
+#include "../model/simulation/simulationProperties.hpp"
 
 
 class SimPropertiesController {

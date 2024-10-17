@@ -3,22 +3,23 @@
 #include "imgui.h"
 
 
-void SimulationInformationView::Render() const {
+void SimulationInformationView::Render(const SimulationResultsRepo &repo)
+{
     ImGui::Begin(WindowName());
 
     ImGui::SeparatorText("Kinematics");
-    ImGui::Text("Position: %.3f", actSimResult.x);
-    ImGui::Text("Velocity: %.3f", actSimResult.xt);
-    ImGui::Text("Acceleration: %.3f", actSimResult.xtt);
+    ImGui::Text("Position: %.3f", repo.GetPosition().back());
+    ImGui::Text("Velocity: %.3f", repo.GetVelocities().back());
+    ImGui::Text("Acceleration: %.3f", repo.GetAccelerations().back());
 
     ImGui::SeparatorText("Forces");
-    ImGui::Text("Spring force: %.3f", actSimResult.springForce);
-    ImGui::Text("Damping force: %.3f", actSimResult.dampingForce);
-    ImGui::Text("External force: %.3f", actSimResult.externalForce);
+    ImGui::Text("Spring force: %.3f", repo.GetSpringForces().back());
+    ImGui::Text("Damping force: %.3f", repo.GetDampingForces().back());
+    ImGui::Text("External force: %.3f", repo.GetExternalForces().back());
 
     ImGui::SeparatorText("Other");
-    ImGui::Text("Time: %.3f", actSimResult.t);
-    ImGui::Text("Spring free end position: %.3f", actSimResult.springFreeEndPosition);
+    ImGui::Text("Time: %.3f", repo.GetTimes().back());
+    ImGui::Text("Spring free end position: %.3f", repo.GetSpringFreeEndPositions().back());
 
     ImGui::End();
 }

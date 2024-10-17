@@ -1,6 +1,6 @@
 #include <simulation/controllers/simPropertiesController.hpp>
 
-#include "simulation/model/timeFunctions/constantFunction.hpp"
+#include "simulation/model/simulation/timeFunctions/constantFunction.hpp"
 
 
 SimulationProperties SimPropertiesController::GetDefaultProperties() {

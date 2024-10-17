@@ -1,5 +1,7 @@
 #include <simulation/controllers/guiController.hpp>
 
+#include <simulation/views/simInformationView.hpp>
+
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -33,14 +35,7 @@ GuiController::~GuiController()
 }
 
 
-void GuiController::Update(const SimulationResult& result)
-{
-    plotController.Update(result);
-    simulationInformationView.Update(result);
-}
-
-
-void GuiController::Render()
+void GuiController::Render(const SimulationResultsRepo &repo)
 {
     // Creating new frame
     ImGui_ImplOpenGL3_NewFrame();
@@ -49,8 +44,8 @@ void GuiController::Render()
 
     dockingSpace.Render();
     optionsPanel.Render();
-    plotController.Render();
-    simulationInformationView.Render();
+    plotController.Render(repo);
+    SimulationInformationView::Render(repo);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -7,9 +7,8 @@
 
 #include "../views/dockingSpace.hpp"
 #include "../views/optionsPanel.hpp"
-#include "../views/simInformationView.hpp"
 
-#include "../model/simulationResult.hpp"
+#include "../model/simulationResultsRepo.hpp"
 
 
 class GuiController {
@@ -17,9 +16,7 @@ public:
     explicit GuiController(GLFWwindow* window);
     ~GuiController();
 
-    void Update(const SimulationResult& result);
-
-    void Render();
+    void Render(const SimulationResultsRepo& repo);
 
 private:
 
@@ -27,5 +24,4 @@ private:
 
     DockingSpace dockingSpace;
     OptionsPanel optionsPanel;
-    SimulationInformationView simulationInformationView;
 };

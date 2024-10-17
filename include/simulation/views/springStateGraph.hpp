@@ -1,28 +1,13 @@
 #pragma once
 
-#include <simulation/model/simulationResult.hpp>
-
-#include <vector>
-
+#include "../model/simulationResultsRepo.hpp"
 
 
 class SpringStateGraph {
 public:
-    SpringStateGraph();
-
-    void Update(const SimulationResult& state);
-
-    void Render() const;
+    static void Render(const SimulationResultsRepo& repo);
 
     [[nodiscard]]
     static const char* WindowName()
         { return "Position, velocity and acceleration"; }
-
-private:
-    static constexpr int maxStates = 10000;
-
-    std::vector<float> t;
-    std::vector<float> x;
-    std::vector<float> xt;
-    std::vector<float> xtt;
 };
