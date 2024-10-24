@@ -2,6 +2,13 @@
 
 #include "imgui_internal.h"
 
+#include <simulation/views/simulationStartStop.hpp>
+#include <simulation/views/propertiesEditor.hpp>
+#include <simulation/views/forcesGraph.hpp>
+#include <simulation/views/trajectoryGraph.hpp>
+#include <simulation/views/springStateGraph.hpp>
+#include <simulation/views/simInformationView.hpp>
+
 
 DockingSpace::DockingSpace()
 {
@@ -30,24 +37,43 @@ void DockingSpace::Render()
     ImGui::PopStyleVar(2);
 
     // DockSpace
-    const ImGuiIO &io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DockingEnable)
     {
-        ImGuiID DockSpaceId = ImGui::GetID("MyDockSpace");
-        ImGui::DockSpace(DockSpaceId, ImVec2(0.0f, 0.0f), dockNodeFlags);
+        ImGuiID mainDockId = ImGui::GetID("MyDockSpace");
+        ImGui::DockSpace(mainDockId, ImVec2(0.0f, 0.0f), dockNodeFlags);
 
         if (firstRender)
         {
             firstRender = false;
 
-            ImGui::DockBuilderRemoveNode(DockSpaceId); // clear any previous layout
-            ImGui::DockBuilderAddNode(DockSpaceId, dockNodeFlags | ImGuiDockNodeFlags_DockSpace);
-            ImGui::DockBuilderSetNodeSize(DockSpaceId, viewport->Size);
+            ImGui::DockBuilderRemoveNode(mainDockId); // clear any previous layout
+            ImGui::DockBuilderAddNode(mainDockId, dockNodeFlags | ImGuiDockNodeFlags_DockSpace);
+            ImGui::DockBuilderSetNodeSize(mainDockId, viewport->Size);
 
-            //const auto rightDockId = ImGui::DockBuilderSplitNode(DockSpaceId, ImGuiDir_Right, 0.25f, nullptr, &DockSpaceId);
-            //ImGui::DockBuilderDockWindow("Options", rightDockId);
-            ImGui::DockBuilderDockWindow("Dear ImGui Demo", DockSpaceId);
-            ImGui::DockBuilderFinish(DockSpaceId);
+            auto leftUpDockId = ImGui::DockBuilderSplitNode(
+                mainDockId, ImGuiDir_Left, 0.3f, nullptr, &mainDockId);
+            auto leftMiddleDockId = ImGui::DockBuilderSplitNode(
+                leftUpDockId, ImGuiDir_Down, 0.75f, nullptr,&leftUpDockId);
+            const auto leftDownDockId = ImGui::DockBuilderSplitNode(
+                leftMiddleDockId, ImGuiDir_Down, 0.5f, nullptr, &leftMiddleDockId);
+
+            auto rightUpDockId = ImGui::DockBuilderSplitNode(
+                mainDockId, ImGuiDir_Right, 0.5f, nullptr, &mainDockId);
+            const auto rightDownDockId = ImGui::DockBuilderSplitNode(
+                rightUpDockId, ImGuiDir_Down, 0.7f, nullptr, &rightUpDockId);
+
+            const auto mainDownDockId = ImGui::DockBuilderSplitNode(
+                mainDockId, ImGuiDir_Down, 0.5f, nullptr, &mainDockId);
+
+            ImGui::DockBuilderDockWindow(SimulationStartStop::WindowName(), leftUpDockId);
+            ImGui::DockBuilderDockWindow(PropertiesEditor::WindowName(), leftMiddleDockId);
+            ImGui::DockBuilderDockWindow(SimulationInformationView::WindowName(), leftDownDockId);
+
+            ImGui::DockBuilderDockWindow(ForcesGraph::WindowName(), rightUpDockId);
+            ImGui::DockBuilderDockWindow(TrajectoryGraph::WindowName(), rightDownDockId);
+            ImGui::DockBuilderDockWindow(SpringStateGraph::WindowName(), mainDownDockId);
+
+            ImGui::DockBuilderFinish(mainDockId);
         }
     }
 

@@ -54,8 +54,6 @@ void GuiController::Render(const SimulationResultsRepo &repo)
     SimulationInformationView::Render(repo);
     inputController.Render();
 
-    ImGui::ShowDemoWindow();
-
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

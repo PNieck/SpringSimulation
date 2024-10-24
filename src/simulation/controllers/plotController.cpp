@@ -21,8 +21,6 @@ PlotController::~PlotController()
 
 void PlotController::Render(const SimulationResultsRepo &repo) const
 {
-    ImPlot::ShowDemoWindow();
-
     SpringStateGraph::Render(repo);
     ForcesGraph::Render(repo);
     TrajectoryGraph::Render(repo);
