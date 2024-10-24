@@ -14,6 +14,9 @@ public:
     inline void EndSimulation()
         { timedLoop.End(); }
 
+    inline bool IsSimulationRunning() const
+        { return timedLoop.IsRunning(); }
+
     [[nodiscard]]
     SimulationResult GetSpringState()
         { return simulation.GetResult(); }

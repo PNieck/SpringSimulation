@@ -17,6 +17,16 @@ public:
 
     void Render();
 
+    void StartSimulation()
+        { model.StartSimulation(); }
+
+    void EndSimulation()
+        { model.EndSimulation(); }
+
+    [[nodiscard]]
+    bool IsSimulationRunning() const
+        { return model.IsSimulationRunning(); }
+
 private:
     GuiController guiController;
     SimPropertiesController simPropertiesController;

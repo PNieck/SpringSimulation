@@ -14,6 +14,9 @@ public:
     void Start();
     void End();
 
+    inline bool IsRunning() const
+        { return running; }
+
 private:
 
     void ThreadFunction();

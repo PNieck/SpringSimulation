@@ -2,7 +2,7 @@
 
 
 MainController::MainController(GLFWwindow *window):
-    guiController(window), model(SimPropertiesController::GetDefaultProperties())
+    guiController(window, *this), model(SimPropertiesController::GetDefaultProperties())
 {
     model.StartSimulation();
 }

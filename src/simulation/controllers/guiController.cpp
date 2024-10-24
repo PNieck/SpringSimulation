@@ -7,8 +7,11 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <misc/cpp/imgui_stdlib.h>
 
+#include "simulation/controllers/mainController.hpp"
 
-GuiController::GuiController(GLFWwindow *window)
+
+GuiController::GuiController(GLFWwindow *window, MainController& controller):
+    inputController(controller)
 {
     const auto glsl_version = "#version 410";
     IMGUI_CHECKVERSION();
@@ -46,6 +49,7 @@ void GuiController::Render(const SimulationResultsRepo &repo)
     optionsPanel.Render();
     plotController.Render(repo);
     SimulationInformationView::Render(repo);
+    inputController.Render();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

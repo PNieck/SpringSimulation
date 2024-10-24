@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "plotController.hpp"
+#include "inputController.hpp"
 
 #include "../views/dockingSpace.hpp"
 #include "../views/optionsPanel.hpp"
@@ -13,7 +14,7 @@
 
 class GuiController {
 public:
-    explicit GuiController(GLFWwindow* window);
+    explicit GuiController(GLFWwindow* window, MainController& controller);
     ~GuiController();
 
     void Render(const SimulationResultsRepo& repo);
@@ -21,6 +22,7 @@ public:
 private:
 
     PlotController plotController;
+    InputController inputController;
 
     DockingSpace dockingSpace;
     OptionsPanel optionsPanel;
