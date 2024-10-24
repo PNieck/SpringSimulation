@@ -29,8 +29,7 @@ public:
     const SimulationProperties& GetProperties() const
         { return simulation.GetProperties(); }
 
-    void SetProperties(SimulationProperties&& props)
-        { simulation.SetProperties(std::move(props)); }
+    void SetProperties(SimulationProperties&& props);
 
 private:
     TimedLoop timedLoop;

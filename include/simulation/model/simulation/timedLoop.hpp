@@ -11,6 +11,8 @@ public:
     TimedLoop(int periodInMs, std::function<void(void)> fun);
     ~TimedLoop();
 
+    void ChangePeriod(int periodInMs);
+
     void Start();
     void End();
 

@@ -19,6 +19,12 @@ TimedLoop::~TimedLoop()
 }
 
 
+void TimedLoop::ChangePeriod(const int periodInMs)
+{
+    periodInNs = periodInMs * oneMsInNs;
+}
+
+
 void TimedLoop::Start()
 {
     if (running)
