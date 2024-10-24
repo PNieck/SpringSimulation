@@ -12,6 +12,8 @@ void ForcesGraph::Render(const SimulationResultsRepo &repo)
         const int vecLen = repo.Size();
         const auto& times = repo.GetTimes();
 
+        ImPlot::SetupLegend(ImPlotLocation_North | ImPlotLocation_East, 0);
+
         ImPlot::SetupAxes("t [s]","value");
         ImPlot::SetupAxesLimits(0,60,-40,40);
         ImPlot::PlotLine("spring force [N]", times.data(), repo.GetSpringForces().data(), vecLen);
