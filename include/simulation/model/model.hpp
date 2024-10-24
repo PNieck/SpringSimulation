@@ -25,6 +25,13 @@ public:
     SimulationResult GetSpringState()
         { return simulation.GetResult(); }
 
+    [[nodiscard]]
+    const SimulationProperties& GetProperties() const
+        { return simulation.GetProperties(); }
+
+    void SetProperties(SimulationProperties&& props)
+        { simulation.SetProperties(std::move(props)); }
+
 private:
     TimedLoop timedLoop;
     Simulation simulation;

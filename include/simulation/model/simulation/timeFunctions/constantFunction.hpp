@@ -8,10 +8,13 @@ public:
     explicit ConstantFunction(const float value = 0.f):
         value(value) {}
 
+    [[nodiscard]]
     float Value(float t) const override {
         return value;
     }
 
-private:
+    void Accept(FunctionVisitor &visitor) const override
+        { visitor.VisitConstantFunction(*this); }
+
     float value;
 };

@@ -33,6 +33,13 @@ public:
     bool IsSimulationRunning() const
         { return model.IsSimulationRunning(); }
 
+    [[nodiscard]]
+    const SimulationProperties& GetSimulationProperties() const
+        { return model.GetProperties(); }
+
+    void SetSimulationProperties(SimulationProperties&& properties)
+        { model.SetProperties(std::move(properties)); }
+
 private:
     GuiController guiController;
     SimPropertiesController simPropertiesController;

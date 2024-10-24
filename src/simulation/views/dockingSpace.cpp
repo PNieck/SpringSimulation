@@ -44,8 +44,8 @@ void DockingSpace::Render()
             ImGui::DockBuilderAddNode(DockSpaceId, dockNodeFlags | ImGuiDockNodeFlags_DockSpace);
             ImGui::DockBuilderSetNodeSize(DockSpaceId, viewport->Size);
 
-            const auto rightDockId = ImGui::DockBuilderSplitNode(DockSpaceId, ImGuiDir_Right, 0.25f, nullptr, &DockSpaceId);
-            ImGui::DockBuilderDockWindow("Options", rightDockId);
+            //const auto rightDockId = ImGui::DockBuilderSplitNode(DockSpaceId, ImGuiDir_Right, 0.25f, nullptr, &DockSpaceId);
+            //ImGui::DockBuilderDockWindow("Options", rightDockId);
             ImGui::DockBuilderDockWindow("Dear ImGui Demo", DockSpaceId);
             ImGui::DockBuilderFinish(DockSpaceId);
         }

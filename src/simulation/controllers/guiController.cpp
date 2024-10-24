@@ -7,6 +7,8 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <misc/cpp/imgui_stdlib.h>
 
+#include <glad/glad.h>
+
 #include "simulation/controllers/mainController.hpp"
 
 
@@ -40,16 +42,19 @@ GuiController::~GuiController()
 
 void GuiController::Render(const SimulationResultsRepo &repo)
 {
+    glClear(GL_COLOR_BUFFER_BIT);
+
     // Creating new frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
     dockingSpace.Render();
-    optionsPanel.Render();
     plotController.Render(repo);
     SimulationInformationView::Render(repo);
     inputController.Render();
+
+    ImGui::ShowDemoWindow();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -5,6 +5,7 @@ Simulation::Simulation(SimulationProperties&& properties):
 {
 }
 
+
 void Simulation::UpdateSimulation()
 {
     std::lock_guard guard(springStateMutex);
@@ -35,6 +36,14 @@ void Simulation::Restart()
 
     actSpringState = SpringState(simProps);
     prevSpringState = SpringState(simProps);
+}
+
+
+void Simulation::SetProperties(SimulationProperties&& properties)
+{
+    std::lock_guard guard(springStateMutex);
+
+    simProps = std::move(properties);
 }
 
 

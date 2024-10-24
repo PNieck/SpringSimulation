@@ -7,7 +7,6 @@
 #include "inputController.hpp"
 
 #include "../views/dockingSpace.hpp"
-#include "../views/optionsPanel.hpp"
 
 #include "../model/simulationResultsRepo.hpp"
 
@@ -25,5 +24,4 @@ private:
     InputController inputController;
 
     DockingSpace dockingSpace;
-    OptionsPanel optionsPanel;
 };

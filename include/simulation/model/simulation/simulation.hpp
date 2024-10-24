@@ -17,6 +17,12 @@ public:
 
     void Restart();
 
+    [[nodiscard]]
+    const SimulationProperties& GetProperties() const
+        { return simProps; }
+
+    void SetProperties(SimulationProperties&& properties);
+
 private:
     [[nodiscard]]
     SpringState NewState();

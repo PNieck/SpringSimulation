@@ -1,7 +1,5 @@
 #include <simulation/controllers/simPropertiesController.hpp>
 
-#include "simulation/model/simulation/timeFunctions/constantFunction.hpp"
-
 
 SimulationProperties SimPropertiesController::GetDefaultProperties() {
     return {
@@ -11,7 +9,7 @@ SimulationProperties SimPropertiesController::GetDefaultProperties() {
         .mass = 1.f,
         .dampingCoef = 0.1f,
         .springCoef = 5.f,
-        .externalForce = std::make_unique<ConstantFunction>(0.f),
-        .springFreeEndPosition = std::make_unique<ConstantFunction>(0.f),
+        .externalForce = GetDefaultConstantFunction(),
+        .springFreeEndPosition = GetDefaultConstantFunction(),
     };
 }
