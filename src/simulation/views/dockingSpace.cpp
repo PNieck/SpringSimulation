@@ -60,7 +60,7 @@ void DockingSpace::Render()
             auto rightUpDockId = ImGui::DockBuilderSplitNode(
                 mainDockId, ImGuiDir_Right, 0.5f, nullptr, &mainDockId);
             const auto rightDownDockId = ImGui::DockBuilderSplitNode(
-                rightUpDockId, ImGuiDir_Down, 0.7f, nullptr, &rightUpDockId);
+                rightUpDockId, ImGuiDir_Down, 0.5f, nullptr, &rightUpDockId);
 
             const auto mainDownDockId = ImGui::DockBuilderSplitNode(
                 mainDockId, ImGuiDir_Down, 0.5f, nullptr, &mainDockId);
