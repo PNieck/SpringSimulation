@@ -23,6 +23,12 @@ public:
     void EndSimulation()
         { model.EndSimulation(); }
 
+    void ResetSimulation()
+    {
+        model.RestartSimulation();
+        repo.Clear();
+    }
+
     [[nodiscard]]
     bool IsSimulationRunning() const
         { return model.IsSimulationRunning(); }

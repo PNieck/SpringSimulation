@@ -23,7 +23,13 @@ void SimulationStartStop::Render() const
     if (ImGui::Button("Stop")) {
         controller.EndSimulation();
     }
+
     ImGui::EndDisabled();
+
+    ImGui::SameLine();
+    if (ImGui::Button("Restart")) {
+        controller.ResetSimulation();
+    }
 
     ImGui::End();
 }

@@ -51,6 +51,8 @@ public:
     bool Empty() const
         { return t.empty(); }
 
+    void Clear();
+
 private:
     static constexpr int initSize = 10000;
 

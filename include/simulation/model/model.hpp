@@ -14,7 +14,11 @@ public:
     inline void EndSimulation()
         { timedLoop.End(); }
 
-    inline bool IsSimulationRunning() const
+    void RestartSimulation()
+        { simulation.Restart(); }
+
+    [[nodiscard]]
+    bool IsSimulationRunning() const
         { return timedLoop.IsRunning(); }
 
     [[nodiscard]]

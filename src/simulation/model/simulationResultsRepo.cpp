@@ -25,3 +25,16 @@ void SimulationResultsRepo::AddNewResult(const SimulationResult &newResult)
     externalForce.push_back(newResult.externalForce);
     springFreeEndPosition.push_back(newResult.springFreeEndPosition);
 }
+
+
+void SimulationResultsRepo::Clear()
+{
+    t.clear();
+    x.clear();
+    xt.clear();
+    xtt.clear();
+    springForce.clear();
+    dampingForce.clear();
+    externalForce.clear();
+    springFreeEndPosition.clear();
+}

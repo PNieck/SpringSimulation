@@ -15,6 +15,8 @@ public:
     [[nodiscard]]
     SimulationResult GetResult();
 
+    void Restart();
+
 private:
     [[nodiscard]]
     SpringState NewState();

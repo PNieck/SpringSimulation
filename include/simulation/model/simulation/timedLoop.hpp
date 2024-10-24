@@ -14,7 +14,8 @@ public:
     void Start();
     void End();
 
-    inline bool IsRunning() const
+    [[nodiscard]]
+    bool IsRunning() const
         { return running; }
 
 private:

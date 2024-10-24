@@ -7,7 +7,7 @@ Simulation::Simulation(SimulationProperties&& properties):
 
 void Simulation::UpdateSimulation()
 {
-    std::lock_guard quard(springStateMutex);
+    std::lock_guard guard(springStateMutex);
 
     const auto tmp = NewState();
     prevSpringState = actSpringState;
@@ -17,7 +17,7 @@ void Simulation::UpdateSimulation()
 
 SimulationResult Simulation::GetResult()
 {
-    std::lock_guard quard(springStateMutex);
+    std::lock_guard guard(springStateMutex);
 
     return {
         prevSpringState,
@@ -26,6 +26,15 @@ SimulationResult Simulation::GetResult()
         simProps.externalForce->Value(prevSpringState.t),
         simProps.springFreeEndPosition->Value(prevSpringState.t),
     };
+}
+
+
+void Simulation::Restart()
+{
+    std::lock_guard guard(springStateMutex);
+
+    actSpringState = SpringState(simProps);
+    prevSpringState = SpringState(simProps);
 }
 
 
@@ -56,12 +65,12 @@ float Simulation::NewPosition() const
 }
 
 
-float Simulation::NewVelocity(float newPosition) const {
+float Simulation::NewVelocity(const float newPosition) const {
     return (newPosition - prevSpringState.x) / (2.f * simProps.deltaT);
 }
 
 
-float Simulation::NewAcceleration(float newPosition) const {
+float Simulation::NewAcceleration(const float newPosition) const {
     return (newPosition - 2.f*actSpringState.x + prevSpringState.x) / (simProps.deltaT * simProps.deltaT);
 }
 
