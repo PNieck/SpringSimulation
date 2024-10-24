@@ -1,3 +1,4 @@
+#include <functional>
 #include <simulation/views/propertiesEditor.hpp>
 
 #include <imgui.h>
@@ -11,13 +12,17 @@
 
 enum TimeFunctionsType {
     Constant = 0,
-    Sharp = 1
+    Sharp = 1,
+    SharpCyclic = 2,
+    Sinusoidal = 3
 };
 
 
 static const char* TimeFunctionsNames[] = {
     "Constant function",
-    "Sharp function"
+    "Sharp function",
+    "Sharp cyclic",
+    "Sinusoidal"
 };
 
 
@@ -26,9 +31,14 @@ public:
     void VisitConstantFunction(const ConstantFunction &function) override
         { timeFunctionType = Constant; }
 
-    void VisitSharpFunction(const class SharpFunction &function) override
+    void VisitSharpFunction(const SharpFunction &function) override
         { timeFunctionType = Sharp; }
 
+    void VisitSharpCyclicFunction(const SharpCyclicFunction &function) override
+        { timeFunctionType = SharpCyclic; }
+
+    void VisitSinusoidalFunction(const SinusoidalFunction &function) override
+        { timeFunctionType = Sinusoidal; }
 
     TimeFunctionsType timeFunctionType = Constant;
 };
@@ -69,6 +79,49 @@ public:
         ImGui::PopID();
     }
 
+    void VisitSharpCyclicFunction(const SharpCyclicFunction& function) override
+    {
+        value = function.amplitude;
+        frequency = function.frequency;
+        phaseShift = function.phaseShift;
+        functionType = SharpCyclic;
+
+        ImGui::PushID(id);
+
+        if (ImGui::DragFloat("Amplitude", &value))
+            valueChanged = true;
+
+        if (ImGui::DragFloat("Frequency", &frequency))
+            valueChanged = true;
+
+        if (ImGui::DragFloat("Phase shift", &phaseShift))
+            valueChanged = true;
+
+        ImGui::PopID();
+    }
+
+
+    void VisitSinusoidalFunction(const SinusoidalFunction &function) override
+    {
+        value = function.amplitude;
+        frequency = function.frequency;
+        phaseShift = function.phaseShift;
+        functionType = Sinusoidal;
+
+        ImGui::PushID(id);
+
+        if (ImGui::DragFloat("Amplitude", &value))
+            valueChanged = true;
+
+        if (ImGui::DragFloat("Frequency", &frequency))
+            valueChanged = true;
+
+        if (ImGui::DragFloat("Phase shift", &phaseShift))
+            valueChanged = true;
+
+        ImGui::PopID();
+    }
+
     std::unique_ptr<TimeFunction> GetTimeFunction()
     {
         switch (functionType) {
@@ -77,6 +130,12 @@ public:
 
             case Sharp:
                 return std::make_unique<SharpFunction>(value, timeThreshold);
+
+            case SharpCyclic:
+                return std::make_unique<SharpCyclicFunction>(value, frequency, phaseShift);
+
+            case Sinusoidal:
+                return std::make_unique<SinusoidalFunction>(value, frequency, phaseShift);
 
             default:
                 throw std::runtime_error("Invalid time function type");
@@ -89,11 +148,13 @@ public:
 private:
     float value = 0.f;
     float timeThreshold = 0.f;
+    float frequency = 0.f;
+    float phaseShift = 0.f;
     TimeFunctionsType functionType = Constant;
 };
 
 
-std::unique_ptr<TimeFunction> GetDefaultTimeFunction(TimeFunctionsType type)
+std::unique_ptr<TimeFunction> GetDefaultTimeFunction(const TimeFunctionsType type)
 {
     switch (type) {
         case Constant:
@@ -101,6 +162,12 @@ std::unique_ptr<TimeFunction> GetDefaultTimeFunction(TimeFunctionsType type)
 
         case Sharp:
             return SimPropertiesController::GetDefaultSharpFunction();
+
+        case SharpCyclic:
+            return SimPropertiesController::GetDefaultSharpCyclicFunction();
+
+        case Sinusoidal:
+            return SimPropertiesController::GetDefaultSinusoidalFunction();
 
         default:
             throw std::runtime_error("Invalid time function type");
