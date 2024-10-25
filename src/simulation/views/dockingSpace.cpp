@@ -8,6 +8,7 @@
 #include <simulation/views/trajectoryGraph.hpp>
 #include <simulation/views/springStateGraph.hpp>
 #include <simulation/views/simInformationView.hpp>
+#include <simulation/views/springVisualization.hpp>
 
 
 DockingSpace::DockingSpace()
@@ -72,6 +73,7 @@ void DockingSpace::Render()
             ImGui::DockBuilderDockWindow(ForcesGraph::WindowName(), rightUpDockId);
             ImGui::DockBuilderDockWindow(TrajectoryGraph::WindowName(), rightDownDockId);
             ImGui::DockBuilderDockWindow(SpringStateGraph::WindowName(), mainDownDockId);
+            ImGui::DockBuilderDockWindow(SpringVisualization::WindowName(), mainDockId);
 
             ImGui::DockBuilderFinish(mainDockId);
         }

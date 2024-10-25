@@ -7,6 +7,7 @@
 #include "inputController.hpp"
 
 #include "../views/dockingSpace.hpp"
+#include "../views/springVisualization.hpp"
 
 #include "../model/simulationResultsRepo.hpp"
 
@@ -22,6 +23,7 @@ private:
 
     PlotController plotController;
     InputController inputController;
+    SpringVisualization springVisualization;
 
     DockingSpace dockingSpace;
 };

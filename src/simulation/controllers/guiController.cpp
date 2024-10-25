@@ -53,6 +53,7 @@ void GuiController::Render(const SimulationResultsRepo &repo)
     plotController.Render(repo);
     SimulationInformationView::Render(repo);
     inputController.Render();
+    springVisualization.Render(repo);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
