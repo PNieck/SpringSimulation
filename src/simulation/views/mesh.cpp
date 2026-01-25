@@ -9,6 +9,14 @@ Mesh::Mesh()
 }
 
 
+Mesh::~Mesh()
+{
+    glDeleteBuffers(1, &EBO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
+}
+
+
 void Mesh::Update(const std::vector<float>& vertices, const std::vector<uint32_t>& indices)
 {
     glBindVertexArray(VAO);
@@ -19,7 +27,7 @@ void Mesh::Update(const std::vector<float>& vertices, const std::vector<uint32_t
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * indices.size(), indices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), static_cast<void *>(nullptr));
     glEnableVertexAttribArray(0);
 
     elementsCnt = indices.size();

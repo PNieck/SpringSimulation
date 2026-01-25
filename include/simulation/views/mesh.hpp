@@ -8,14 +8,20 @@
 class Mesh {
 public:
     Mesh();
+    Mesh(Mesh&& mesh) = default;
+    Mesh(Mesh& mesh) = delete;
+    ~Mesh();
 
     void Update(const std::vector<float>& vertices, const std::vector<uint32_t>& indices);
 
-    unsigned int GetElementsCnt() const
+    [[nodiscard]]
+    int GetElementsCnt() const
         { return elementsCnt; }
 
-    inline void Use() const
+    void Use() const
         { glBindVertexArray(VAO); }
+
+    Mesh& operator=(Mesh& mesh) = delete;
 
 private:
     /// @brief OpenGl vector array object
@@ -27,5 +33,5 @@ private:
     /// @brief OpenGl element buffer object
     unsigned int EBO;
 
-    unsigned int elementsCnt;
+    int elementsCnt;
 };
